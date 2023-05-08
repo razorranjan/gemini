@@ -5,7 +5,6 @@ import MuiAppBar from '@mui/material/AppBar'
 import Chart from './Chart';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -42,8 +41,13 @@ function Dashboard() {
         }
     ];
     const [lineData, setLineChartData] = useState([]);
-    // console.log('linedata::::::', lineData);
-    if (lineData.length == 0) {
+    const [walletAddress, setWalletAddress] = useState('');
+    if (walletAddress === '') {
+        setWalletAddress(localStorage.getItem('wallet_address'));
+    }
+    // console.log('localStorage.getItem::::::', localStorage.getItem('wallet_address'));
+    // console.log('walletAddress::::::', walletAddress);
+    if (lineData.length === 0) {
         setLineChartData(transactions);
     }
     const sendJobcoins = (event) => {
@@ -62,18 +66,18 @@ function Dashboard() {
         event.preventDefault();
         navigate('/');
     }
-    let jobcoins = {
-        "address1": 50,
-        "address2": 100,
-        "address3": 25
-    };
-    const defaultAddressCoins = () => {
-        return [
-            {}
-        ];
-    }
+    // let jobcoins = {
+    //     "address1": 50,
+    //     "address2": 100,
+    //     "address3": 25
+    // };
+    // const defaultAddressCoins = () => {
+    //     return [
+    //         {}
+    //     ];
+    // }
     // console.log(lineData);
-    const drawerWidth = 0;
+    // const drawerWidth = 0;
     const theme = createTheme();
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
@@ -92,7 +96,7 @@ function Dashboard() {
                         <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={toggleDrawer} sx={{ marginRight: '36px',...(open && { display: 'none' }), }} >
                             <MenuIcon />
                         </IconButton>
-                        <Typography component="h1"variant="h6"color="inherit"noWrapsx={{ flexGrow: 1 }}>
+                        <Typography component="h1" variant="h6" color="inherit" >
                             Dashboard
                         </Typography>
                         <IconButton color="inherit">
@@ -105,8 +109,8 @@ function Dashboard() {
                 <Grid container spacing={3} sx={{pt:10}}>
                     <Grid item xs={12} md={4} lg={4}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 100,}}>
-                            <Typography component="div" variant='h5'>Address Balance</Typography>
-                            <Typography sx={{ mb: 1.5 }}>JC 980292</Typography>
+                            <Typography component="div" variant='h5'>Wallet Address: { walletAddress }</Typography>
+                            <Typography sx={{ mb: 1.5 }}>Address Balance: JC 980292</Typography>
                         </Paper>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', mt: 2 }}>
                             <Box component='form' noValidate sx={{ mt: 1 }} onSubmit={sendJobcoins}>

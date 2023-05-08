@@ -12,6 +12,7 @@ function Login() {
         const data = new FormData(event.currentTarget);
         console.log(data);
         console.log(data.get('wallet_address'));
+        localStorage.setItem("wallet_address", data.get('wallet_address'));
         navigate('/dashboard');
     };
     return (
